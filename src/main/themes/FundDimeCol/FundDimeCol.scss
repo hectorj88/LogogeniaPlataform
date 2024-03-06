@@ -1,0 +1,9 @@
+@import "../hover/hover";
+
+@mixin FundDimeCol {
+  @include hover;
+  .btnSalida
+  {
+  color:white;
+  }
+}

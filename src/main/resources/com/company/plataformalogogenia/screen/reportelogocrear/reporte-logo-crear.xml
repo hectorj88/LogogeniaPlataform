@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="Nuevo reporte pedagogico"
+        focusComponent="form">
+    <data>
+        <instance id="reporteDc"
+                  class="com.company.plataformalogogenia.entity.Reporte">
+            <fetchPlan extends="_base">
+                <property name="tutoriaId" fetch="JOIN">
+                    <property name="logogenistaId" fetch="JOIN">
+                        <property name="nombres"/>
+                    </property>
+                    <property name="alumnoId" fetch="JOIN">
+                        <property name="nombres"/>
+                    </property>
+                </property>
+                <property name="periodoAcademicoId" fetch="JOIN">
+                    <property name="nombre"/>
+                </property>
+                <property name="indicadores" fetch="JOIN">
+                    <property name="idCompetencia" fetch="JOIN">
+                        <property name="nombre"/>
+                        <property name="nivel"/>
+                    </property>
+                    <property name="porcentajeCompletado"/>
+                </property>
+            </fetchPlan>
+            <loader/>
+            <collection id="indicadoresDc" property="indicadores">
+            </collection>
+        </instance>
+        <collection id="competenciasDc" class="com.company.plataformalogogenia.entity.Competencia">
+            <fetchPlan extends="_base"/>
+            <loader id="competenciasDl">
+                <query>
+                    <![CDATA[select e from Competencia e]]>
+                </query>
+            </loader>
+        </collection>
+
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout spacing="true" expand="editActions">
+        <form id="form" dataContainer="reporteDc">
+            <column width="350px">
+                <entityPicker id="tutoriaIdField" property="tutoriaId" caption="Tutoria" captionProperty="id">
+                    <actions>
+                        <action id="entityLookup" type="entity_lookup">
+                             <properties>
+                               <property name="screenId" value="LogoTutoria.browse"/>
+                             </properties>
+                        </action>
+                        <action id="entityClear" type="entity_clear"/>
+                    </actions>
+                </entityPicker>
+                <entityPicker id="periodoAcademicoIdField" property="periodoAcademicoId" caption="Periodo Academico"
+                              captionProperty="nombre">
+                    <actions>
+                        <action id="entityLookup" type="entity_lookup"/>
+                        <action id="entityClear" type="entity_clear"/>
+                    </actions>
+                </entityPicker>
+                <dateField id="fechaHoraEnvioField" property="fechaHoraEnvio" visible="false" editable="false"
+                           enable="false"/>
+                <fileStorageUpload id="videoSesion1Field" property="videoSesion1" fileSizeLimit="1073741824"/>
+                <fileStorageUpload id="videoSesion2Field" property="videoSesion2" fileSizeLimit="1073741824"/>
+                <fileStorageUpload id="escaneoSesion1Field" property="escaneoSesion1" fileSizeLimit="53687091"/>
+                <fileStorageUpload id="escaneoSesion2Field" property="escaneoSesion2" fileSizeLimit="53687091"/>
+                <textField id="ultimoCambioPorField" property="ultimoCambioPor" visible="false" editable="false"
+                           enable="false"/>
+            </column>
+        </form>
+        <groupBox id="indicadoresBox" caption="Indicadores">
+            <table id="indicadoresTable" dataContainer="indicadoresDc" width="100%" height="400px" sortable="false"
+                   reorderingAllowed="false" contextMenuEnabled="false" editable="true" columnControlVisible="false"
+                   showTotalAggregation="false" showSelection="false">
+                <actions>
+                    <action id="create" type="create"/>
+                    <action id="edit" type="edit"/>
+                    <action id="remove" type="remove"/>
+                    <action id="testeo"/>
+                </actions>
+                <columns>
+                    <column id="idCompetencia.nombre" sortable="false"/>
+                    <column id="idCompetencia.nivel" sortable="false"/>
+                    <column id="porcentajeCompletado" editable="true" sortable="false"
+                            caption="msg://porcentajeCompletado.caption">
+                    </column>
+                </columns>
+                <buttonsPanel>
+                    <button action="indicadoresTable.testeo" visible="false" enable="false"/>
+                    <button action="indicadoresTable.create" visible="false" enable="false"/>
+                    <button action="indicadoresTable.edit" visible="false"/>
+                    <button action="indicadoresTable.remove" enable="false" visible="false"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="Crear Credenciales"
+        focusComponent="form">
+    <data>
+        <instance id="userDc"
+                  class="com.company.plataformalogogenia.entity.User">
+            <fetchPlan extends="_base"/>
+            <loader/>
+        </instance>
+    </data>
+    <actions>
+        <action id="windowCommitAndClose"
+                caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <dialogMode height="600"
+                width="800"/>
+    <layout spacing="true" expand="editActions">
+        <form id="form" dataContainer="userDc">
+            <column width="350px">
+                <textField id="usernameField" property="username" caption="Usuario"/>
+                <passwordField id="passwordField"
+                               caption="msg://com.company.plataformalogogenia.entity/User.password"
+                               required="true"
+                               property="password"
+                />
+                <passwordField id="confirmPasswordField"
+                               caption=""
+                               visible="false" css="visibility:hidden;"/>
+                <textField id="firstNameField" property="firstName" editable="false" visible="false"/>
+                <textField id="lastNameField" property="lastName" editable="false" visible="false"/>
+                <textField id="emailField" property="email" editable="false" visible="false"/>
+                <comboBox id="timeZoneField" property="timeZoneId" editable="false" textInputAllowed="false"
+                          visible="false"/>
+                <checkBox id="activeField" property="active" editable="false" visible="false"/>
+                <textField id="tipoField" property="tipo" visible="false" editable="false" enable="false"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose" caption="msg://commitAndCloseBtn.caption"/>
+            <button id="closeBtn" action="windowClose" caption="msg://closeBtn.caption"/>
+        </hbox>
+    </layout>
+</window>

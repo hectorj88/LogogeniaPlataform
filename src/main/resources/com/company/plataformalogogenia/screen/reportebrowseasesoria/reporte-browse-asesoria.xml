@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        xmlns:c="http://jmix.io/schema/ui/jpql-condition"
+        caption="Reportes"
+        focusComponent="reportesTable">
+    <data readOnly="true">
+        <collection id="reportesDc"
+                    class="com.company.plataformalogogenia.entity.Reporte">
+            <fetchPlan>
+                <property name="tutoriaId" fetch="JOIN">
+                    <property name="logogenistaId" fetch="JOIN">
+                        <property name="nombres"/>
+                    </property>
+                    <property name="alumnoId" fetch="JOIN">
+                        <property name="nombres"/>
+                    </property>
+                    <property name="estado"/>
+                    <property name="fechaInicio"/>
+                    <property name="fechaFinalizacion"/>
+                </property>
+                <property name="periodoAcademicoId" fetch="JOIN">
+                    <property name="nombre"/>
+                </property>
+                <property name="fechaHoraEnvio"/>
+                <property name="videoSesion1"/>
+                <property name="videoSesion2"/>
+                <property name="escaneoSesion1"/>
+                <property name="escaneoSesion2"/>
+                <property name="retroalimentacion"/>
+                <property name="ultimoCambioPor"/>
+                <property name="indicadores" fetch="JOIN">
+                    <property name="idCompetencia" fetch="JOIN">
+                        <property name="nombre"/>
+                        <property name="nivel"/>
+                    </property>
+                    <property name="porcentajeCompletado"/>
+                </property>
+            </fetchPlan>
+            <loader id="reportesDl">
+                <query>
+                    <![CDATA[select e from Reporte e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+        <lookupScreen id="lookupScreen"/>
+    </facets>
+    <actions>
+        <action id="lookupSelectAction"
+                caption="msg:///actions.Select"
+                icon="LOOKUP_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="lookupCancelAction"
+                caption="msg:///actions.Cancel"
+                icon="LOOKUP_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="reportesTable" spacing="true">
+        <label value="Filtros:"/>
+        <propertyFilter property="tutoriaId.alumnoId" operation="EQUAL" dataLoader="reportesDl"
+                        caption="Filtrar por Alumno">
+            <entityPicker metaClass="Alumno" captionProperty="nombres">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup">
+                        <properties>
+                            <property name="screenId" value="Alumno.browse"/>
+                            <property name="openMode" value="DIALOG"/>
+                        </properties>
+                    </action>
+                    <action id="clear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+        </propertyFilter>
+        <propertyFilter property="tutoriaId.logogenistaId" operation="EQUAL" dataLoader="reportesDl"
+                        caption="Filtrar por Logogenista">
+            <entityPicker metaClass="Logogenista" captionProperty="nombres">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup">
+                        <properties>
+                            <property name="screenId" value="Logogenista.browse"/>
+                            <property name="openMode" value="DIALOG"/>
+                        </properties>
+                    </action>
+                    <action id="clear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+        </propertyFilter>
+        <propertyFilter property="periodoAcademicoId" operation="EQUAL" dataLoader="reportesDl"
+                        caption="Filtrar por Periodo Academico">
+            <entityPicker metaClass="PeriodoAcademico" captionProperty="nombre">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup">
+                        <properties>
+                            <property name="screenId" value="PeriodoAcademico.browse"/>
+                            <property name="openMode" value="DIALOG"/>
+                        </properties>
+                    </action>
+                    <action id="clear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+        </propertyFilter>
+        <groupTable id="reportesTable"
+                    width="100%"
+                    dataContainer="reportesDc">
+            <actions>
+                <action id="edit" type="edit">
+                    <properties>
+                        <property name="openMode" value="THIS_TAB"/>
+                        <property name="screenId" value="ReporteAse.retro"/>
+                    </properties>
+                </action>
+            </actions>
+            <columns>
+                <column id="tutoriaId.id" caption="Tutoria ID"/>
+                <column id="tutoriaId.alumnoId.nombres" caption="Nombre Alumno"/>
+                <column id="tutoriaId.logogenistaId.nombres" caption="Nombre Logogenista"/>
+                <column id="periodoAcademicoId.nombre" caption="Periodo Academico"/>
+                <column id="fechaHoraEnvio"/>
+                <column id="videoSesion1"/>
+                <column id="videoSesion2"/>
+                <column id="escaneoSesion1"/>
+                <column id="escaneoSesion2"/>
+                <column id="retroalimentacion"/>
+            </columns>
+            <simplePagination/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="editBtn" action="reportesTable.edit" caption="msg://editBtn.caption" icon="VIEW_ACTION"/>
+            </buttonsPanel>
+        </groupTable>
+
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

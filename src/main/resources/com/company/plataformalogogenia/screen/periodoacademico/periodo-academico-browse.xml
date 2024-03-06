@@ -1,0 +1,75 @@
+<window xmlns="http://jmix.io/schema/ui/window"
+        xmlns:c="http://jmix.io/schema/ui/jpql-condition"
+        caption="msg://periodoAcademicoBrowse.caption"
+        focusComponent="table">
+    <data>
+        <collection id="periodoAcademicoesDc"
+                    class="com.company.plataformalogogenia.entity.PeriodoAcademico">
+            <fetchPlan extends="_base"/>
+            <loader id="periodoAcademicoesDl">
+                <query>
+                    <![CDATA[select e from PeriodoAcademico e]]>
+                </query>
+            </loader>
+        </collection>
+        <instance id="periodoAcademicoDc"
+                  class="com.company.plataformalogogenia.entity.PeriodoAcademico">
+            <fetchPlan extends="_base"/>
+            <loader/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="save" icon="OK" caption="msg:///actions.Ok" shortcut="CTRL-ENTER"/>
+        <action id="cancel" icon="CANCEL" caption="msg:///actions.Cancel" description="Esc"/>
+    </actions>
+    <dialogMode height="600" width="800"/>
+    <layout>
+        <split id="split" height="100%" orientation="horizontal" reversePosition="true" width="100%">
+            <vbox id="lookupBox" expand="table" height="100%" margin="false,true,false,false" spacing="true">
+                <table id="table"
+                       width="100%"
+                       dataContainer="periodoAcademicoesDc">
+                    <actions>
+                        <action id="create" type="create"/>
+                        <action id="edit" type="edit"/>
+                    </actions>
+                    <columns>
+                        <column id="fechaInicio"/>
+                        <column id="fechaFin"/>
+                        <column id="nombre"/>
+                    </columns>
+                    <simplePagination/>
+                    <buttonsPanel id="buttonsPanel"
+                                  alwaysVisible="true">
+                        <button id="createBtn" action="table.create" caption="msg://createBtn.caption"/>
+                        <button id="editBtn" action="table.edit" caption="msg://editBtn.caption"/>
+                    </buttonsPanel>
+                </table>
+                <hbox id="lookupActions" spacing="true" visible="false">
+                    <button action="lookupSelectAction"/>
+                    <button action="lookupCancelAction"/>
+                </hbox>
+            </vbox>
+            <vbox id="editBox" height="100%" margin="false,false,false,true" expand="fieldGroupBox" spacing="true">
+                <scrollBox id="fieldGroupBox">
+                    <form id="form" dataContainer="periodoAcademicoDc">
+                        <column width="350px">
+                            <dateField id="fechaInicioField" property="fechaInicio"
+                                       caption="msg://fechaInicioField.caption"/>
+                            <dateField id="fechaFinField" property="fechaFin" caption="msg://fechaFinField.caption"/>
+                            <textField id="nombreField" property="nombre"/>
+                        </column>
+                    </form>
+                </scrollBox>
+                <hbox id="actionsPane" spacing="true" visible="false">
+                    <button id="saveBtn" action="save"/>
+                    <button id="cancelBtn" action="cancel"/>
+                </hbox>
+            </vbox>
+        </split>
+    </layout>
+</window>

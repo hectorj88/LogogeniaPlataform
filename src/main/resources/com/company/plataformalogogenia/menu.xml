@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu-config xmlns="http://jmix.io/schema/ui/menu">
+
+    <menu id="application" caption="msg://com.company.plataformalogogenia/menu.application" insertBefore="administration">
+        <item screen="User.browse" caption="msg://com.company.plataformalogogenia.screen.user/UserBrowse.caption"/>
+        <item screen="themeSettingsScreen" caption="msg://io.jmix.ui.app.themesettings/themeSettings.caption"/>
+    </menu>
+    <menu id="Opciones" caption="msg://com.company.plataformalogogenia/menu_config.Opciones"
+          insertAfter="administration" expanded="true">
+        <item screen="Logogenista.browse"
+              caption="msg://com.company.plataformalogogenia.screen.logogenista/logogenistaBrowse.menu"/>
+        <item screen="PeriodoAcademico.browse"
+              caption="msg://com.company.plataformalogogenia.screen.periodoacademico/periodoAcademicoBrowse.menu"/>
+        <item screen="Tutoria.browse"
+              caption="msg://com.company.plataformalogogenia.screen.tutoria/tutoriaBrowse.menu"/>
+        <item screen="Competencia.browse"
+              caption="msg://com.company.plataformalogogenia.screen.competencia/competenciaBrowse.menu"/>
+        <item screen="Reporte.browse"
+              caption="msg://com.company.plataformalogogenia.screen.reporte/reporteBrowse.menu"/>
+        <item screen="Alumno.browse" caption="msg://com.company.plataformalogogenia.screen.alumno/alumnoBrowse.menu"/>
+        <item screen="Reporte.browse.Asesoria" id="ReportebrowseAsesoria"
+              caption="msg://com.company.plataformalogogenia/menu_config.ReportebrowseAsesoria"/>
+        <item screen="ReporteLogo.browse"
+              caption="msg://com.company.plataformalogogenia/menu_config.ReporteLogo.browse" openMode="NEW_TAB"/>
+        <item screen="sec_RoleAssignmentEntity.edit"
+              caption="msg://com.company.plataformalogogenia/menu_config.sec_RoleAssignmentEntity.edit"/>
+    </menu>
+
+</menu-config>

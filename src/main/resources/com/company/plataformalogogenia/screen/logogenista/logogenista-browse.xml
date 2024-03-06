@@ -1,0 +1,100 @@
+<window xmlns="http://jmix.io/schema/ui/window"
+        xmlns:c="http://jmix.io/schema/ui/jpql-condition"
+        caption="msg://logogenistaBrowse.caption"
+        focusComponent="table">
+    <data>
+        <collection id="logogenistasDc"
+                    class="com.company.plataformalogogenia.entity.Logogenista">
+            <fetchPlan extends="_local">
+                <property name="idCuenta" fetch="AUTO"/>
+            </fetchPlan>
+            <loader id="logogenistasDl">
+                <query>
+                    <![CDATA[select e from Logogenista e]]>
+                </query>
+            </loader>
+        </collection>
+        <instance id="logogenistaDc"
+                  class="com.company.plataformalogogenia.entity.Logogenista">
+            <fetchPlan extends="_base">
+                <property name="idCuenta" fetch="AUTO"/>
+            </fetchPlan>
+            <loader/>
+        </instance>
+
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+        <editorScreen id="editorScreen" entityClass="com.company.plataformalogogenia.entity.User" openMode="DIALOG"
+                      screenClass="com.company.plataformalogogenia.screen.cuentaedit.CuentaEdit" screenId="Cuenta.edit"
+                      onAction="idCuentaField.CrearCuenta" field="idCuentaField"/>
+    </facets>
+    <actions>
+        <action id="save" icon="OK" caption="msg:///actions.Ok" shortcut="CTRL-ENTER"/>
+        <action id="cancel" icon="CANCEL" caption="msg:///actions.Cancel" description="Esc"/>
+    </actions>
+    <dialogMode height="600" width="800"/>
+    <layout>
+        <split id="split" height="100%" orientation="horizontal" reversePosition="true" width="100%">
+            <vbox id="lookupBox" expand="table" height="100%" margin="false,true,false,false" spacing="true">
+                <table id="table"
+                       width="100%"
+                       dataContainer="logogenistasDc" contextMenuEnabled="false">
+                    <actions>
+                        <action id="create" type="create"/>
+                        <action id="edit" type="edit"/>
+                    </actions>
+                    <columns>
+                        <column id="nombres"/>
+                        <column id="apellidos"/>
+                        <column id="telefono"/>
+                        <column id="correo"/>
+                        <column id="pais"/>
+                        <column id="ciudad"/>
+                        <column id="idCuenta.username" caption="msg://idCuenta.caption"/>
+                    </columns>
+                    <simplePagination/>
+                    <buttonsPanel id="buttonsPanel"
+                                  alwaysVisible="true">
+                        <button id="createBtn" action="table.create" caption="msg://createBtn.caption"/>
+                        <button id="editBtn" action="table.edit" caption="msg://editBtn.caption"/>
+                    </buttonsPanel>
+                </table>
+                <hbox id="lookupActions" spacing="true" visible="false">
+                    <button action="lookupSelectAction"/>
+                    <button action="lookupCancelAction"/>
+                </hbox>
+            </vbox>
+            <vbox id="editBox" height="100%" margin="false,false,false,true" expand="fieldGroupBox" spacing="true">
+                <scrollBox id="fieldGroupBox">
+                    <form id="form" dataContainer="logogenistaDc">
+                        <column width="350px">
+                            <textField id="nombresField" property="nombres"/>
+                            <textField id="apellidosField" property="apellidos"/>
+                            <textField id="telefonoField" property="telefono"/>
+                            <textField id="correoField" property="correo"/>
+                            <textField id="paisField" property="pais"/>
+                            <textField id="ciudadField" property="ciudad"/>
+                            <entityPicker id="idCuentaField" captionProperty="username" property="idCuenta" caption="Usuario">
+                                <actions>
+                                    <!--action id="entityLookup" type="entity_lookup">
+                                        <properties>
+                                            <property name="screenId" value="Cuenta.browse"/>
+                                        </properties>
+                                    </action-->
+                                    <action id="CrearCuenta" icon="font-icon:USER_CIRCLE"/>
+                                    <!--action id="entityClear" type="entity_clear"/-->
+                                </actions>
+                            </entityPicker>
+                        </column>
+                    </form>
+                </scrollBox>
+                <hbox id="actionsPane" spacing="true" visible="false">
+                    <button id="saveBtn" action="save" caption="msg://saveBtn.caption"/>
+                    <button id="cancelBtn" action="cancel" caption="msg://cancelBtn.caption"/>
+                </hbox>
+            </vbox>
+        </split>
+    </layout>
+</window>

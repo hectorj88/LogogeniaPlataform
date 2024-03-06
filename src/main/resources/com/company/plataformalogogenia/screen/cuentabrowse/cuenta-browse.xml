@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window" caption="Cuentas" xmlns:ext="http://jmix.io/schema/ui/window-ext"
+        extends="com/company/plataformalogogenia/screen/user/user-browse.xml">
+    <layout>
+        <filter id="filter" dataLoader="usersDl" enable="false" visible="false">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="usersTable" multiselect="false" columnControlVisible="false" reorderingAllowed="false"
+                    showTotalAggregation="false" sortable="false">
+            <actions>
+                <action id="create" type="create">
+                    <properties>
+                        <property name="screenId" value="Cuenta.edit"/>
+                    </properties>
+                </action>
+            </actions>
+            <buttonsPanel id="buttonsPanel" alwaysVisible="true">
+                <button id="removeBtn" enable="false" visible="false"/>
+                <button id="showRoleAssignmentsBtn" enable="false" visible="false"/>
+                <popupButton id="additionalActionsBtn" caption="Adicional" enable="false" visible="false"/>
+            </buttonsPanel>
+            <columns>
+                <column id="username" ext:index="0"/>
+                <column id="firstName" visible="false" ext:index="1"/>
+                <column id="lastName" visible="false" ext:index="2"/>
+                <column id="email" visible="false" ext:index="3"/>
+                <column id="timeZoneId" visible="false" ext:index="4"/>
+                <column id="active" visible="false" ext:index="5"/>
+            </columns>
+        </groupTable>
+    </layout>
+</window>

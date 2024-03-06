@@ -1,0 +1,8 @@
+@import "FundDimeCol-defaults";
+@import "addons";
+@import "FundDimeCol";
+
+.FundDimeCol {
+  @include addons;
+  @include FundDimeCol;
+}

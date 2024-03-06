@@ -1,0 +1,61 @@
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://caption">
+
+    <actions>
+        <action id="submit"
+                caption="msg://loginButton"
+                icon="CHECK"
+                shortcut="ENTER"/>
+    </actions>
+
+    <layout stylename="jmix-login-main-layout">
+        <vbox id="loginWrapper" height="100%" width="100%">
+            <vbox id="loginMainBox"
+                  align="MIDDLE_CENTER"
+                  margin="true"
+                  spacing="true"
+                  stylename="jmix-login-panel"
+                  width="AUTO">
+                <image align="MIDDLE_CENTER">
+                    <resource>
+                        <theme path="branding/LogoDimeColombia.png"/>
+                    </resource>
+                </image>
+                <label id="welcomeLabel"
+                       align="MIDDLE_CENTER"
+                       stylename="jmix-login-caption"
+                       value="msg://welcomeLabel"/>
+
+                <vbox id="loginForm"
+                      spacing="true"
+                      stylename="jmix-login-form">
+                    <cssLayout id="loginCredentials"
+                               stylename="jmix-login-credentials">
+                        <textField id="usernameField"
+                                   htmlName="usernameField"
+                                   stylename="jmix-login-username" caption="msg://usernameField.caption"/>
+                        <passwordField id="passwordField"
+                                       autocomplete="true"
+                                       htmlName="passwordField"
+                                       stylename="jmix-login-password" caption="msg://passwordField.caption"/>
+                    </cssLayout>
+                    <hbox id="rememberLocalesBox"
+                          stylename="jmix-login-remember-locales" visible="false">
+                        <checkBox id="rememberMeCheckBox"
+                                  caption="msg://loginScreen.rememberMe"
+                                  stylename="jmix-login-remember-me" visible="false"/>
+                        <comboBox id="localesField"
+                                  nullOptionVisible="false"
+                                  stylename="jmix-login-locale"
+                                  textInputAllowed="false" visible="false"/>
+                    </hbox>
+
+                    <button id="loginButton"
+                            align="MIDDLE_CENTER"
+                            action="submit"
+                            stylename="jmix-login-submit-button" caption="msg://loginButton.caption"/>
+                </vbox>
+            </vbox>
+        </vbox>
+    </layout>
+</window>
